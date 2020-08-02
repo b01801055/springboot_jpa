@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
@@ -30,7 +31,15 @@ public class AuthorTests {
 
     @Test
     public void findAuthorTest() {
-        List<Author> authors = authorRepository.findByPhoneAndNickName("123456", "Ron");
-        System.out.println(JSON.toJSONString(authors,true));
+//        List<Author> authors = authorRepository.findByPhoneAndNickName("123456", "Ron");
+//        List<Author> authors = authorRepository.findDistinctByNickNameIgnoreCaseOrPhoneOrderBySignDateDesc("Ron", "123456");
+//        List<Author> authors = authorRepository.findByNickNameLike("%Ro%");
+//        List<Author> authors = authorRepository.findByPhone("67");
+//        List<Object[]> arry = authorRepository.findArry("T");
+//        List<Author> authors = authorRepository.findByNickName("o",Sort.by(Sort.Direction.DESC, "signDate"));
+//        List<Author> authors = authorRepository.findBySql("o");
+        int i = authorRepository.setNickName("Xp", "1234567");
+
+//        System.out.println(JSON.toJSONString(authors,true));
     }
 }
