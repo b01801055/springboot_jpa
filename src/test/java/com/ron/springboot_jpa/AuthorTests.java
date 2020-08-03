@@ -3,10 +3,14 @@ package com.ron.springboot_jpa;
 import com.alibaba.fastjson.JSON;
 import com.ron.springboot_jpa.domain.Author;
 import com.ron.springboot_jpa.domain.AuthorRepository;
+import com.ron.springboot_jpa.service.AuthorService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -20,11 +24,14 @@ public class AuthorTests {
     @Autowired
     private AuthorRepository authorRepository;
 
+    @Autowired
+    private AuthorService authorService;
+
     @Test
     public void saveAuthorTest() {
         Author author = new Author();
-        author.setNickName("Ron");
-        author.setPhone("123456");
+        author.setNickName("Tommy");
+        author.setPhone("1234567");
         author.setSignDate(new Date());
         authorRepository.save(author);
     }
@@ -38,8 +45,22 @@ public class AuthorTests {
 //        List<Object[]> arry = authorRepository.findArry("T");
 //        List<Author> authors = authorRepository.findByNickName("o",Sort.by(Sort.Direction.DESC, "signDate"));
 //        List<Author> authors = authorRepository.findBySql("o");
-        int i = authorRepository.setNickName("Xp", "1234567");
+//        int i = authorRepository.setNickName("Xp", "1234567");
 
 //        System.out.println(JSON.toJSONString(authors,true));
+    }
+
+    @Test
+    public void findAuthorForPageTest() {
+        Sort sort = Sort.by(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(1, 2, sort);
+        Page<Author> page = authorRepository.findAll(pageable);
+
+        System.out.println(JSON.toJSONString(page, true));
+    }
+
+    @Test
+    public void transactionalTest() {
+        authorService.updateAuthor();
     }
 }
