@@ -13,7 +13,7 @@ public class Article {
     private String title;
     private String content;
 
-    @OneToMany(mappedBy = "article",cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @OneToMany(mappedBy = "article",cascade = {CascadeType.PERSIST,CascadeType.REMOVE},fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>();
 
     public void addComment(Comment comment) {
